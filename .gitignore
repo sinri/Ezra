@@ -1,0 +1,9 @@
+logs
+__pycache__
+*.egg-info
+build
+.vscode
+./venv
+./idea
+
+./models
