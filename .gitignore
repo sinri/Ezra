@@ -3,7 +3,7 @@ __pycache__
 *.egg-info
 build
 .vscode
-./venv
-./idea
+venv
+.idea
 
-./models
+/models/
