@@ -1,3 +1,5 @@
+from typing import List, Optional
+
 import numpy as np
 import torch as torch
 from transformers import T5Tokenizer, MT5ForConditionalGeneration
@@ -6,17 +8,29 @@ from ezra.Ezra import Ezra
 
 
 class Randeng(Ezra):
-    def __init__(self, model: str, max_knowledge_length: int = 10240):
+    """
+    :see https://huggingface.co/IDEA-CCNL/Randeng-T5-784M-QA-Chinese
+    :model-name IDEA-CCNL/Randeng-T5-784M-QA-Chinese
+    :model-clone git clone https://huggingface.co/IDEA-CCNL/Randeng-T5-784M-QA-Chinese
+    """
+
+    model_name = 'IDEA-CCNL/Randeng-T5-784M-QA-Chinese'
+
+    def __init__(self, model: Optional[str] = None, max_knowledge_length: int = 10240):
         super().__init__()
+
+        if model is None:
+            model = self.model_name
 
         self.__tokenizer = T5Tokenizer.from_pretrained(model)
         self.__model = MT5ForConditionalGeneration.from_pretrained(model)
 
         self.__max_knowledge_length = max_knowledge_length
+
         self.__max_token_length = 10240
         self.__max_answer_length = 1024
 
-    def read_and_answer(self, content: str, question: str):
+    def read_and_answer(self, content: str, question: str) -> List[str]:
         sample = {
             "context": content,
             "question": question,

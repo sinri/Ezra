@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 
 class Ezra(ABC):
@@ -6,5 +7,5 @@ class Ezra(ABC):
         pass
 
     @abstractmethod
-    def read_and_answer(self, content: str, question: str):
+    def read_and_answer(self, content: str, question: str) -> List[str]:
         pass
